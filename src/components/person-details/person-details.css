@@ -1,0 +1,35 @@
+.personDetails {
+    margin-top: 2%;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+.personDetails h1 {
+    margin-left: 0;
+}
+.personDetails .person-info:first-of-type {
+    border-top: 1px solid rgb(145, 131, 131);
+    margin-top: 3% !important;
+}
+.person-info {
+    border-bottom: 1px solid rgb(145, 131, 131);
+    padding: 0 0 4px 8px;
+    margin-bottom: 0px;
+}
+.boldInfo {
+    color: burlywood;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 26px;
+    text-align: center;
+    overflow: hidden;
+}
+.boldInfo:first-of-type{
+    border-bottom: 2px solid burlywood;
+}
+.person-info .boldInfo {
+    font-size: 20px;
+    margin-left: 4%;    
+}
+.propertyName {
+    text-align: center;
+}

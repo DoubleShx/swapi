@@ -1,0 +1,10 @@
+.itemList {
+    margin-top: 2%;
+    padding-right: 0px;
+    padding-left: 0px;
+}
+.whenActive:hover {
+    transition: 1s background ease-in-out;
+    background-color: rgba(220, 206, 206, 0.631);
+    cursor: pointer;
+}

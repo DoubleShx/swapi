@@ -1,0 +1,30 @@
+.divCon {
+    padding-top: 1%;
+    padding-bottom: 1%;
+    background-color: darkolivegreen;
+}
+.planetImg {
+    display: block;
+    width: 100%;
+    min-height: 100%;
+}
+h1 {
+    font-size: 18px;
+    margin-left: 3%;
+}
+.divCon >ul li {
+    font-size: 25px;
+    list-style: georgian !important;
+}
+.planet-info:first-of-type {
+    border-top: 1px solid rgb(145, 131, 131);
+    margin-top: 1%;
+}
+.planet-info {
+    border-bottom: 1px solid rgb(145, 131, 131);
+    padding: 0 0 4px 8px;
+    margin-bottom: 0px;
+}
+.boldPlanet {
+    color: cornflowerblue;
+}
