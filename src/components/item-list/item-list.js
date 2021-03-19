@@ -1,68 +1,100 @@
 import React, { Component } from 'react'
+import { NavLink } from 'react-router-dom';
 import SwapiService from '../../services/SwapiService'
 import ErrorComponent from '../errorComponent';
-import PersonDetails from '../person-details';
 import Spiner from '../spinner';
 import './item-list.css'
 
 export default class ItemList extends Component {
 
     state = {
-        persons: [],
-        planets: [],
-        starships: [],
+        renderItems: [],
+        path: null,
         error: false,
         loading: true,
-        selectedPerson: {}
     }
 
     swapi = new SwapiService();
-
     componentDidMount() {
-    this.swapi.getAllPeople()
-    .then(persons => this.setState({
-        persons, loading: false
-    }))
-    .catch(err => 
-        {console.log(err)
-            this.setState({error: true})
-        })
-    }  
-    
-    selectPerson = (person) => {
-        this.setState({
-            selectedPerson: person
-        })
+        const {path} = this.props;
+        this.setState({path})
+        console.log('Mount', path)
+        this.setRenderer(path)
+        
     }
 
-    render() {
-        const {persons, loading, error, selectedPerson} = this.state;
+    setRenderer(path) {
+        if (path === '/people') {
+            this.swapi.getAllPeople()
+                .then(renderItems => {
+                    this.setState({
+                    renderItems, loading: false
+                }); })
+                .catch(err => 
+                    {console.log(err)
+                        this.setState({error: true})
+                    });
+            }
+        
+        if (path === '/planets') {
+            this.swapi.getAllPlanets()
+            .then(renderItems => {
+                this.setState({renderItems, loading:false});               
+             })
+            .catch(err => {
+                     this.setState({error:true})
+            });
+        }
+         if (path === '/starships') {
+        this.swapi.getAllStarships()
+            .then(renderItems => {
+                this.setState({renderItems, loading:false});                
+            })
+            .catch(err => {console.log(err); this.setState({error: true})})
+        } 
+        
+    }
+    
+
+         render() {
+        
+        const {renderItems, loading, error, path} = this.state;
             
     return ( <div className="container">
                 <div className="row">
-                    <div className="col-md-5 itemList">
+                    <div className="col itemList alert">
+                        <this.DidntChosen/>
+                    <button onClick={()=> console.log(this.state)}>State Item-List</button>
                         <ul className="list-group">
                             { error? <ErrorComponent/> :
                             loading? <Spiner/> :
-                                persons.map(el => {
-                                return (
-                                <this.PlanetView 
-                                    key = {el.id}
+                                renderItems.map(el => {
+                                return (    
+                                    <NavLink key = {el.id} to={`${path}/${el.id}`}>                              
+                                    <this.PersonView                                                                        
                                     name = {el.name} 
-                                    person={el}/>
+                                    /> 
+                                    </NavLink>                                    
                                 )
                             })}
                         </ul> 
-                        </div>
-                        {selectedPerson ? <PersonDetails selectedPerson = {selectedPerson}/>  : null }                                               
+                        </div>                              
                     </div>
                  </div>
             )
     }
 
-    PlanetView = ({name, person}) => {
+    DidntChosen = () => {
         return (
-        <li className="list-group-item whenActive" onClick={() => this.selectPerson(person)}>{name}</li>
+            <div className="col alert alert-dark detailsInvisible">
+                <h1>Chose some item to get information about it</h1>
+            </div>
+        )
+    }
+
+    PersonView = ({name, person}) => {
+        return (
+        <li className="list-group-item whenActive unselectable">{name}</li>
         )
     } 
 }

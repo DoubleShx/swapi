@@ -37,16 +37,15 @@ export default class RandomPlanet extends Component {
     }
 
     render() {
-        const {loading, error, planet} = this.state;
-        const {id, name, population, rotationPeriod, diameter} = planet
+        const {loading, error, planet, id, name, population, rotationPeriod, diameter} = this.state;
         return( <React.Fragment>
                 { error? (<ErrorComponent/>) :
                 loading ?  (<Spiner/>) :   
                 <this.PlanetView planet={planet} id={id} name={name} population={population} rotationPeriod={rotationPeriod} diameter={diameter}/>      
                 }
                 </React.Fragment>
-    )
-}
+        )
+    }
         PlanetView = ({planet, id, name, population, rotationPeriod, diameter}) => {
            return (
             <div className="container divCon bg-dark">
@@ -56,11 +55,11 @@ export default class RandomPlanet extends Component {
                     src={`https://starwars-visualguide.com/assets/img/planets/${id}.jpg`}/>
                 </div>
                 <div className="col-sm-8">
-                    <div className="row"> <h1>Planet Name: <b className="boldPlanet">{name}</b></h1></div>
+                    <div className="row"> <h1 className="unselectable">Planet Name: <b className="boldPlanet selectable">{name}</b></h1></div>
                     
-                        <p className="planet-info">Population:  <b className="boldPlanet">{population}</b> people </p>
-                        <p className="planet-info">Rotation Period:  <b className="boldPlanet">{rotationPeriod}</b> years</p>
-                        <p className="planet-info">Diameter:  <b className="boldPlanet">{diameter}</b> meter </p>
+                        <p className="planet-info unselectable">Population:  <b className="boldPlanet selectable">{population}</b> people </p>
+                        <p className="planet-info unselectable">Rotation Period:  <b className="boldPlanet selectable">{rotationPeriod}</b> years</p>
+                        <p className="planet-info unselectable">Diameter:  <b className="boldPlanet selectable">{diameter}</b> meter </p>
                         <button onClick={() => console.log(planet)}>State</button>
                     
                 </div>                

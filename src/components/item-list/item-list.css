@@ -3,8 +3,18 @@
     padding-right: 0px;
     padding-left: 0px;
 }
+
 .whenActive:hover {
     transition: 1s background ease-in-out;
     background-color: rgba(220, 206, 206, 0.631);
     cursor: pointer;
+}
+
+.unselectable {
+    user-select: none;
+}
+.detailsInvisible {
+    margin-top: 2%;
+    padding-top: 3%;
+    user-select: none
 }

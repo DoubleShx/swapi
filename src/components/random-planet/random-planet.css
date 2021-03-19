@@ -28,3 +28,10 @@ h1 {
 .boldPlanet {
     color: cornflowerblue;
 }
+.unselectable {
+    user-select: none;
+}
+.selectable {
+    user-select: all !important;
+}
+
