@@ -41,6 +41,21 @@ export default class SwapiService {
       const starship = await this.getResource(`/starships/${id}`);
       return this._transformApi._transformStarship(starship)
     }
+
+    getById = async(path, id) => {
+      if (path.indexOf('/people') !== -1 ) {
+        const res = await this.getPersonById(id)
+        return res;
+      }
+      if (path.indexOf('/planets') !== -1 ) {
+        const res = await this.getPlanetById(id)
+        return res
+      }
+      if (path.indexOf('/starships') !== -1 ) {
+        const res = await this.getStarshipsById(id) 
+        return res;
+      }
+    }
       
     _transformApi = {
 
@@ -82,10 +97,25 @@ export default class SwapiService {
     }    
     }
 
-    
-    const swapi = new SwapiService();
-    swapi.getAllStarships()
-    .then(req => console.log(req))
+    // const swapi = new SwapiService();
+    // function getById(path, id) {
+    //   if (path.indexOf('/people') !== -1) {
+    //   return swapi.getPersonById(id)
+    //   }
+    //   else if (path.indexOf('/planets') !== -1) {
+    //   return swapi.getPlanetById(id)
+    //   }
+    //   else if (path.indexOf('/starships') !== -1) {
+    //   return swapi.getStarshipsById(id)
+    //   }
+    // }
+    // console.log(getById('/starships', 3))
+
+    // swapi.getStarshipsById(3)
+    // .then(res => console.log(res))
+
+    // swapi.getAllStarships()
+    // .then(req => console.log(req))
     // swapi.getAllPeople()
     // .then(res => console.log(res))
     // // swapi.getAllPeople().then((people) => {

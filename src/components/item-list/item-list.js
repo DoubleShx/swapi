@@ -64,7 +64,6 @@ export default class ItemList extends Component {
                 <div className="row">
                     <div className="col itemList alert">
                         <this.DidntChosen/>
-                    <button onClick={()=> console.log(this.state)}>State Item-List</button>
                         <ul className="list-group">
                             { error? <ErrorComponent/> :
                             loading? <Spiner/> :

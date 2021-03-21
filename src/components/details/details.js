@@ -2,33 +2,34 @@ import React, { Component } from 'react'
 import SwapiService from '../../services/SwapiService'
 import ErrorComponent from '../errorComponent'
 import Spiner from '../spinner'
-import './person-details.css'
+import './details.css'
 
-export default class PersonDetails extends Component { 
+export default class Details extends Component { 
 
     state = {
-        person: null,
+        renderer: null,
         id: null,
         loading: true,
         error: false
     }
     componentDidMount() {
+        console.log(this.props)
         this.updatePerson()
     };
     componentDidUpdate(prevProps) {
-        if (prevProps.selectedPerson !== this.props.selectedPerson) {
+        if (prevProps.selectedId !== this.props.selectedId) {
             this.updatePerson()
         }
     }
     swapi = new SwapiService();
     updatePerson() {
         this.setState({loading: true})
-        const {selectedPerson} = this.props;
-        if (!selectedPerson) {
+        const {selectedId, path} = this.props;
+        if (!selectedId) {
             return;
         }
-        this.swapi.getPersonById(selectedPerson)
-        .then(person =>  this.setState({person, loading:false}))
+        this.swapi.getById(path, selectedId)
+        .then(renderer =>  this.setState({renderer, loading:false}))
         .catch(err => this.setState({error:true}))
     }
     
@@ -40,29 +41,35 @@ export default class PersonDetails extends Component {
         else if (this.state.loading) {
             return(<div className="col-md-7 personDetails"><Spiner/></div>)
         }   else {      
-        const {person} = this.state;
-        const {name, id, gender, birthYear, eyeColor} = this.state.person 
-
+        const {renderer} = this.state;
+        const {name, id} = this.state.renderer;
+        let { url } = this.props
+        if (url.indexOf('/people') !== -1) {
+            url = `/characters/${id}`
+        }
         return (
                 <div className="container">
-                    <div className="col bg-dark personDetails">
+                    <div className="row bg-dark personDetails">
                         <div className="row"> 
-                            {person ?
-                            <React.Fragment>
                             <div className="col-sm-4">
                                 <img className="img-fluid personImg" alt=""
-                                src={`https://starwars-visualguide.com/assets/img/characters/${id}.jpg`} /> 
+                                src={`https://starwars-visualguide.com/assets/img${url}.jpg`} /> 
                                 
                             </div>
+
                             <div className="col-sm-8">
-                                <p className="propertyName">Person Id: {id}</p>
+                                <p className="propertyName"> Id: {id}</p>
                                 <h1 className="boldInfo">{name}</h1>
-                                <p className="person-info">Person gender: <b className="boldInfo">{gender}</b></p>
-                                <p className="person-info">Person birthday: <b className="boldInfo">{birthYear}</b></p>
-                                <p className="person-info">Person eye  color: <b className="boldInfo">{eyeColor}</b></p>
-                                
-                                <button onClick={()=> console.log(this.state)}>test</button>
-                            </div></React.Fragment> : null}
+                            {Object.entries(renderer).map(([key, value], index) => {
+                                if (key !== 'id' && key !=='name' && value !== undefined) {
+                                return (
+                                    <p className="person-info" key={index}>{key}: <b className="boldInfo">{value}</b></p>      
+                                )
+                                }
+                            })
+                            }  
+                            </div>
+                            
                         </div>
                     </div>
                 </div>

@@ -60,7 +60,6 @@ export default class RandomPlanet extends Component {
                         <p className="planet-info unselectable">Population:  <b className="boldPlanet selectable">{population}</b> people </p>
                         <p className="planet-info unselectable">Rotation Period:  <b className="boldPlanet selectable">{rotationPeriod}</b> years</p>
                         <p className="planet-info unselectable">Diameter:  <b className="boldPlanet selectable">{diameter}</b> meter </p>
-                        <button onClick={() => console.log(planet)}>State</button>
                     
                 </div>                
             </div>
