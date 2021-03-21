@@ -2,25 +2,26 @@ import React from 'react'
 import Header from '../header'
 import RandomPlanet from '../random-planet'
 import ItemList from '../item-list'
-import {BrowserRouter,  Route} from 'react-router-dom'
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom'
 
 import './app.css'
 import Details from '../details'
 
 
 
-const App = () => {
+ const App = () => {  
     return (
         <div className="fluid divide">  
              <BrowserRouter>    
                 <Header />
                 <RandomPlanet />
-               
+                
+                <Switch>
                 <Route path='/people' exact={true} render={(match) => {
                     return <ItemList path={match.match.path}/>
                 }} />
                 <Route path='/planets' exact={true} render={(match) => {
-                    return <ItemList path = { match.match.path } />
+                    return <ItemList path = { match.match.path } match={match}/>
                 }} />   
                 <Route path='/starships' exact={true} render={(match) => {
                     return <ItemList path = { match.match.path } />
@@ -37,10 +38,14 @@ const App = () => {
                     return <Details selectedId={match.params.id}
                     path = { match.path } url = { match.url }/>                    
                 }}/>
+                <Redirect to='/' />
+
+                </Switch>
              
              </BrowserRouter>
         </div>
-    )
+        )
+    
 }
 
 export default App;

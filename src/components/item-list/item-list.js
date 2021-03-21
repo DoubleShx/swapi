@@ -18,9 +18,12 @@ export default class ItemList extends Component {
     componentDidMount() {
         const {path} = this.props;
         this.setState({path})
-        console.log('Mount', path)
-        this.setRenderer(path)
-        
+        this.setRenderer(path)        
+    }
+    componentDidUpdate(prevProps) {
+        if (prevProps !== this.props) {
+            console.log(`did update: ${this.props.match}`)
+        }
     }
 
     setRenderer(path) {

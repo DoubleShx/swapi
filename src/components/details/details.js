@@ -13,7 +13,6 @@ export default class Details extends Component {
         error: false
     }
     componentDidMount() {
-        console.log(this.props)
         this.updatePerson()
     };
     componentDidUpdate(prevProps) {
@@ -36,10 +35,10 @@ export default class Details extends Component {
 
     render() {
         if (this.state.error) {
-            return (<div className="col-md-7 personDetails"><ErrorComponent/></div>)
+            return (<div className="row personDetails"><ErrorComponent/></div>)
         }
         else if (this.state.loading) {
-            return(<div className="col-md-7 personDetails"><Spiner/></div>)
+            return(<div className="row personDetails"><Spiner/></div>)
         }   else {      
         const {renderer} = this.state;
         const {name, id} = this.state.renderer;
